@@ -89,8 +89,37 @@
     </button>
     
     <p style="color: rgba(204,204,204,0.7); margin-top: 20px; font-size: 14px;">
-        При нажатии Email будет скопирован в буфер обмена
+        Email будет скопирован в буфер обмена
     </p>
 </div>
+
+<script>
+const copyButton = document.getElementById('copyButton');
+const buttonText = document.getElementById('buttonText');
+const checkmark = document.getElementById('checkmark');
+
+copyButton.addEventListener('click', function() {
+    // Копируем email
+    navigator.clipboard.writeText('shiros.production.work@gmail.com');
+    
+    // Анимация кнопки
+    buttonText.style.opacity = '0';
+    checkmark.style.transform = 'translate(-50%, -50%) scale(1)';
+    checkmark.style.opacity = '1';
+    
+    // Меняем стиль кнопки
+    copyButton.style.background = 'linear-gradient(180deg, #00cc00 0%, #00aa00 100%)';
+    copyButton.style.boxShadow = '0 4px 20px rgba(0, 204, 0, 0.4)';
+    
+    // Возвращаем обратно через 2 секунды
+    setTimeout(() => {
+        buttonText.style.opacity = '1';
+        checkmark.style.transform = 'translate(-50%, -50%) scale(0)';
+        checkmark.style.opacity = '0';
+        copyButton.style.background = 'linear-gradient(180deg, rgba(236,0,140,1) 0%, rgba(200,0,120,1) 100%)';
+        copyButton.style.boxShadow = '0 4px 20px rgba(236, 0, 140, 0.4), 0 0 0 1px rgba(255,255,255,0.1) inset';
+    }, 2000);
+});
+</script>
 </body>
 </html>
