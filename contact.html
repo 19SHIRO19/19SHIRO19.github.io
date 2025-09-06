@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Контакты - SHIRO19</title>
+    <link rel="icon" href="IMG_0646.ico" type="image/x-icon">
+    <style>
+        body {
+            background: url('https://avatars.mds.yandex.net/i?id=babe2c4466c617891515c0698813e28a_l-7570837-images-thumbs&n=13') center center fixed;
+            background-size: cover;
+            margin: 0;
+            color: white;
+            font-family: Comfortaa, sans-serif;
+        }
+        .content {
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 100px auto;
+            max-width: 600px;
+        }
+        .email-link {
+            display: block;
+            text-align: center;
+            font-size: 20px;
+            color: #ec008c;
+            margin: 30px 0;
+            text-decoration: none;
+        }
+        .btn-back {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: linear-gradient(0.75turn, rgba(236,0,140,1) 0%, rgba(252,103,103,1) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center; margin: 40px 0;">
+    <!-- Красивое оформление email -->
+    <div style="background: linear-gradient(135deg, rgba(236,0,140,0.15) 0%, rgba(252,103,103,0.15) 100%); 
+                padding: 25px; 
+                border-radius: 20px; 
+                border: 2px solid rgba(236,0,140,0.3);
+                backdrop-filter: blur(10px);
+                margin-bottom: 30px;
+                box-shadow: 0 8px 32px rgba(236,0,140,0.2),
+                            inset 0 0 0 1px rgba(255,255,255,0.1);">
+        
+        <div style="font-size: 28px; 
+                    color: #ec008c; 
+                    font-weight: bold; 
+                    margin-bottom: 15px;
+                    text-shadow: 0 2px 8px rgba(236,0,140,0.4);
+                    letter-spacing: 1px;">
+            ✉️ shiromail@proton.me
+        </div>
+        
+        <div style="color: rgba(255,255,255,0.8); 
+                    font-size: 16px; 
+                    margin-top: 10px;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
+            Нажмите кнопку ниже чтобы скопировать
+        </div>
+    </div>
+    
+    <!-- Анимированная кнопка -->
+    <button id="copyButton" 
+            style="background: linear-gradient(180deg, rgba(236,0,140,1) 0%, rgba(200,0,120,1) 100%); 
+                   color: white; 
+                   border: none; 
+                   padding: 18px 40px; 
+                   border-radius: 16px; 
+                   font-size: 18px; 
+                   font-weight: 600;
+                   cursor: pointer;
+                   box-shadow: 0 4px 20px rgba(236, 0, 140, 0.4),
+                              0 0 0 1px rgba(255,255,255,0.1) inset;
+                   transition: all 0.3s ease;
+                   position: relative;
+                   overflow: hidden;">
+        <span id="buttonText">📋 Скопировать email</span>
+        <div id="checkmark" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; transition: all 0.3s ease;">✅</div>
+    </button>
+    
+    <p style="color: rgba(204,204,204,0.7); margin-top: 20px; font-size: 14px;">
+        При нажатии Email будет скопирован в буфер обмена
+    </p>
+</div>
+</body>
+</html>
