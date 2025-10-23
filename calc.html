@@ -1,0 +1,540 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculator — Demo</title>
+    <style>
+
+        :root {
+            --accent: #1e88e5;
+            --accent-dark: #1565c0;
+            --bg: linear-gradient(135deg, #e3f2fd, #f5faff);
+            --btn-bg: linear-gradient(180deg, #ffffff, #edf4fa);
+            --btn-shadow: 0 4px 10px rgba(20,50,90,0.08);
+            --modal-bg: rgba(0,0,0,0.5);
+            --card-bg: #fff;
+            --text-muted: #7b8a99;
+            --success: #0b8f3b;
+            --price-grad: linear-gradient(90deg, #ff8a65, #ffb86b);
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Калькулятор */
+        .calculator {
+            width: 340px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid rgba(20,40,70,0.25);
+            box-shadow: 0 15px 35px rgba(20,40,70,0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Заголовок с кружочком на калькуляторе */
+        .title-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .blue-circle {
+            width: 32px;
+            height: 32px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(30,136,229,0.3);
+        }
+
+        .title-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0d1f33;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 26px;
+            font-weight: 700;
+            text-align: right;
+            border: 2px solid rgba(20,40,70,0.3);
+            border-radius: 12px;
+            background: linear-gradient(180deg,#f9fbff,#edf4ff);
+            box-shadow: inset 0 -3px 8px rgba(0,0,0,0.05);
+            padding: 8px 16px;
+            color: #0d1f33;
+            box-sizing: border-box;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        button {
+            border: 2px solid rgba(20,40,70,0.25);
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            background: var(--btn-bg);
+            box-shadow: var(--btn-shadow);
+            cursor: pointer;
+            transition: transform 0.08s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            height: 55px;
+        }
+
+            button:hover {
+                border-color: var(--accent);
+                box-shadow: 0 0 10px rgba(30,136,229,0.2), 0 4px 10px rgba(20,50,90,0.1);
+            }
+
+            button:active {
+                transform: translateY(2px);
+                box-shadow: 0 0 5px rgba(30,136,229,0.25) inset;
+            }
+
+        .op {
+            color: var(--accent-dark);
+            font-weight: 700;
+            background: linear-gradient(180deg,#e6f0ff,#ffffff);
+        }
+
+        .equal {
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 20px;
+            border: none;
+            box-shadow: 0 8px 16px rgba(30,136,229,0.25);
+        }
+
+            .equal:hover {
+                background: var(--accent-dark);
+                box-shadow: 0 0 12px rgba(30,136,229,0.4);
+            }
+
+        /* Специальные кнопки */
+        .special {
+            color: #e74c3c;
+            font-weight: 700;
+            background: linear-gradient(180deg,#ffe6e6,#ffffff);
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--modal-bg);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+
+        .modal-left, .modal-right {
+            flex: 1 1 350px;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .modal-left {
+            background: linear-gradient(180deg,#ffffff,#f9fbff);
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .modal-right {
+            background: #fff;
+        }
+
+        /* Левая часть — обзор */
+        .price-tag {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 6px;
+        }
+
+        .line {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-weight: 600;
+        }
+
+        .price-chip {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: var(--price-grad);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* Правая часть — форма */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        label {
+            font-size: 13px;
+            color: #34495e;
+        }
+
+        input.fake {
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1.5px solid rgba(12,34,66,0.2);
+            background: #fbfdff;
+            font-size: 15px;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+
+            input.fake:focus {
+                border-color: var(--accent);
+                outline: none;
+                box-shadow: 0 0 6px rgba(30,136,229,0.25);
+            }
+
+        .complete-btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(90deg,#09b44f,#0b8f3b);
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(11,143,59,0.18);
+        }
+
+            .complete-btn:hover {
+                box-shadow: 0 0 10px rgba(11,143,59,0.35);
+            }
+
+        .cancel {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px 14px;
+            background: transparent;
+            border-radius: 10px;
+            border: 1px solid rgba(12,34,66,0.06);
+            cursor: pointer;
+        }
+
+        .disclaimer {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #9aa6b2;
+            text-align: center;
+            border-top: 1px dashed rgba(0,0,0,0.08);
+            padding-top: 10px;
+        }
+
+        @media (max-width: 760px) {
+            .modal-content {
+                flex-direction: column;
+            }
+
+            .modal-left {
+                border-right: none;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <!-- Заголовок с кружочком на калькуляторе -->
+        <div class="title-container">
+            <div class="blue-circle"></div>
+            <div class="title-text">Calculator</div>
+        </div>
+
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <!-- Первая строка: AC, Delete, %, ÷ -->
+            <button class="special" onclick="clearDisplay()">AC</button>
+            <button class="special" onclick="deleteLast()">⌫</button>
+            <button class="special" onclick="calculatePercentage()">%</button>
+            <button class="op" onclick="setOperation('/')">÷</button>
+
+            <!-- Вторая строка: 7, 8, 9, × -->
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="op" onclick="setOperation('*')">×</button>
+
+            <!-- Третья строка: 4, 5, 6, − -->
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="op" onclick="setOperation('-')">−</button>
+
+            <!-- Четвертая строка: 1, 2, 3, + -->
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="op" onclick="setOperation('+')">+</button>
+
+            <!-- Пятая строка: 0, ., = -->
+            <button class="zero" onclick="appendNumber('0')">0</button>
+            <button onclick="appendNumber('.')">.</button>
+            <button class="equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-left">
+                <h3>Calculator Pro Premium</h3>
+                <p class="price-tag">$9.99</p>
+                <div class="line"><span>Subtotal</span><span>$7.59</span></div>
+                <div class="line"><span>VAT (12%)</span><span>$2.40</span></div>
+                <div class="line"><span>Total</span><span class="price-chip">$9.99</span></div>
+            </div>
+            <div class="modal-right">
+                <h3>Payment Details</h3>
+                <div class="field">
+                    <label>Email</label>
+                    <input class="fake" type="email" id="email" placeholder="youremail@example.com">
+                </div>
+                <div class="field">
+                    <label>Card number</label>
+                    <input class="fake" type="text" id="cardNumber" maxlength="19" placeholder="1234 1234 1234 1234">
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <div class="field" style="flex:1;">
+                        <label>MM/YY</label>
+                        <input class="fake" type="text" id="expiry" maxlength="5" placeholder="MM/YY">
+                    </div>
+                    <div class="field" style="width:100px;">
+                        <label>CVC</label>
+                        <input class="fake" type="text" id="cvc" maxlength="3" placeholder="CVC">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Cardholder name</label>
+                    <input class="fake" type="text" id="cardName" placeholder="Full name on card">
+                </div>
+                <button class="complete-btn" id="complete">Complete Purchase — $9.99</button>
+                <button class="cancel" onclick="closeModal()">Cancel</button>
+                <div class="disclaimer">
+                    © All Rights Reserved. SHIRO's PRODUCTION company.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '';
+        let firstNumber = null;
+        let currentOperation = null;
+        let displayValue = '';
+        let isPremiumActivated = false;
+
+        const display = document.getElementById('display');
+        const modal = document.getElementById('modal');
+
+        function appendNumber(number) {
+            if (currentOperation === null) {
+                // Первое число
+                currentInput += number;
+                displayValue = currentInput;
+            } else {
+                // Второе число
+                if (currentInput === firstNumber?.toString()) {
+                    currentInput = number;
+                } else {
+                    currentInput += number;
+                }
+                displayValue = firstNumber + ' ' + getOperationSymbol(currentOperation) + ' ' + currentInput;
+            }
+            updateDisplay();
+        }
+
+        function setOperation(op) {
+            if (currentInput !== '') {
+                if (firstNumber === null) {
+                    firstNumber = parseFloat(currentInput);
+                    currentOperation = op;
+                    displayValue = currentInput + ' ' + getOperationSymbol(op);
+                } else if (currentOperation === null) {
+                    currentOperation = op;
+                    displayValue = currentInput + ' ' + getOperationSymbol(op);
+                } else {
+                    // Если операция уже выбрана, обновляем ее
+                    currentOperation = op;
+                    displayValue = firstNumber + ' ' + getOperationSymbol(op) + ' ' + (currentInput || '');
+                }
+                updateDisplay();
+            }
+        }
+
+        function getOperationSymbol(op) {
+            switch (op) {
+                case '+': return '+';
+                case '-': return '−';
+                case '*': return '×';
+                case '/': return '÷';
+                default: return op;
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            firstNumber = null;
+            currentOperation = null;
+            displayValue = '';
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (currentOperation === null) {
+                currentInput = currentInput.slice(0, -1);
+                displayValue = currentInput;
+            } else {
+                currentInput = currentInput.slice(0, -1);
+                displayValue = firstNumber + ' ' + getOperationSymbol(currentOperation) + ' ' + currentInput;
+            }
+            updateDisplay();
+        }
+
+        function calculatePercentage() {
+            if (currentInput !== '') {
+                currentInput = (parseFloat(currentInput) / 100).toString();
+                if (currentOperation === null) {
+                    displayValue = currentInput;
+                } else {
+                    displayValue = firstNumber + ' ' + getOperationSymbol(currentOperation) + ' ' + currentInput;
+                }
+                updateDisplay();
+            }
+        }
+
+        function calculate() {
+            if (isPremiumActivated) {
+                // Премиум режим - обычные вычисления
+                if (firstNumber !== null && currentOperation !== null && currentInput !== '') {
+                    const secondNumber = parseFloat(currentInput);
+                    let result;
+
+                    switch (currentOperation) {
+                        case '+':
+                            result = firstNumber + secondNumber;
+                            break;
+                        case '-':
+                            result = firstNumber - secondNumber;
+                            break;
+                        case '*':
+                            result = firstNumber * secondNumber;
+                            break;
+                        case '/':
+                            result = firstNumber / secondNumber;
+                            break;
+                        default:
+                            return;
+                    }
+
+                    displayValue = result.toString();
+                    currentInput = result.toString();
+                    firstNumber = null;
+                    currentOperation = null;
+                    updateDisplay();
+                }
+            } else {
+                // Обычный режим - показываем модальное окно
+                showModal();
+            }
+        }
+
+        function updateDisplay() {
+            display.value = displayValue || '0';
+        }
+
+        function showModal() {
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        function checkPremiumActivation() {
+            const email = document.getElementById('email').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiry = document.getElementById('expiry').value;
+            const cvc = document.getElementById('cvc').value;
+            const cardName = document.getElementById('cardName').value;
+
+            if (email === 'SHIRODEV.1919' &&
+                cardNumber === '1901 1111 1919 1919' &&
+                expiry === '19/19' &&
+                cvc === '190' &&
+                cardName === 'SHIROSPROD.') {
+
+                isPremiumActivated = true;
+                alert('🎉 Premium активирован! Теперь вы можете пользоваться калькулятором без ограничений!');
+                closeModal();
+
+                // Меняем заголовок на премиум
+                document.querySelector('.title-text').textContent = 'Calculator Premium';
+                document.querySelector('.title-text').style.color = '#ff6b00';
+            } else {
+                alert('Ты ебанат?! Иди поищи бесплатный, нахера тебе такой?');
+            }
+        }
+
+        document.getElementById('complete').addEventListener('click', e => {
+            e.preventDefault();
+            checkPremiumActivation();
+        });
+
+        window.onclick = function (event) {
+            if (event.target == modal) closeModal();
+        };
+
+        // Инициализация дисплея
+        updateDisplay();
+    </script>
+</body>
+</html>

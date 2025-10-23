@@ -12,6 +12,7 @@
             color: white;
             font-family: Comfortaa, sans-serif;
         }
+
         .content {
             background: rgba(0,0,0,0.7);
             backdrop-filter: blur(8px);
@@ -20,6 +21,7 @@
             margin: 100px auto;
             max-width: 600px;
         }
+
         .email-link {
             display: block;
             text-align: center;
@@ -28,6 +30,7 @@
             margin: 30px 0;
             text-decoration: none;
         }
+
         .btn-back {
             display: inline-block;
             margin-top: 30px;
@@ -38,88 +41,161 @@
             border-radius: 25px;
             border: 2px solid rgba(255,255,255,0.3);
         }
+
+        /* Новая кнопка */
+        .Btn {
+            width: 150px;
+            height: 50px;
+            background-color: rgb(65, 64, 64);
+            border: none;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.342);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            position: relative;
+            overflow: hidden;
+            transition-duration: .5s;
+            margin: 20px auto;
+        }
+
+        .text {
+            color: rgb(184, 236, 104);
+            font-weight: 800;
+            letter-spacing: 1.1px;
+            z-index: 2;
+            font-size: 14px;
+        }
+
+        .svgIcon {
+            z-index: 2;
+            width: 20px;
+            height: 20px;
+        }
+
+            .svgIcon path {
+                fill: rgb(184, 236, 104);
+            }
+
+        .Btn:hover {
+            color: rgb(230, 255, 193);
+        }
+
+        .effect {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(184, 236, 104);
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0;
+            transition-duration: .5s;
+        }
+
+        .Btn:hover .effect {
+            transform: scale(15);
+            transform-origin: center;
+            opacity: 1;
+            transition-duration: .5s;
+        }
+
+        .Btn:hover {
+            box-shadow: 0px 0px 5px rgb(184, 236, 104), 0px 0px 10px rgb(184, 236, 104), 0px 0px 30px rgb(184, 236, 104);
+            transition-duration: .7s;
+        }
+
+            .Btn:hover .text {
+                color: rgb(65, 64, 64);
+            }
+
+            .Btn:hover .svgIcon path {
+                fill: rgb(65, 64, 64);
+            }
+
+        /* Стили для состояния "скопировано" */
+        .Btn.copied {
+            background-color: rgb(184, 236, 104);
+        }
+
+            .Btn.copied .text {
+                color: rgb(65, 64, 64);
+            }
+
+            .Btn.copied .svgIcon path {
+                fill: rgb(65, 64, 64);
+            }
     </style>
 </head>
 <body>
     <div style="text-align: center; margin: 40px 0;">
-    <!-- Красивое оформление email -->
-    <div style="background: linear-gradient(135deg, rgba(236,0,140,0.15) 0%, rgba(252,103,103,0.15) 100%); 
-                padding: 25px; 
-                border-radius: 20px; 
+        <!-- Красивое оформление email -->
+        <div style="background: linear-gradient(135deg, rgba(236,0,140,0.15) 0%, rgba(252,103,103,0.15) 100%);
+                padding: 25px;
+                border-radius: 20px;
                 border: 2px solid rgba(236,0,140,0.3);
                 backdrop-filter: blur(10px);
                 margin-bottom: 30px;
                 box-shadow: 0 8px 32px rgba(236,0,140,0.2),
                             inset 0 0 0 1px rgba(255,255,255,0.1);">
-        
-        <div style="font-size: 28px; 
-                    color: #ec008c; 
-                    font-weight: bold; 
+
+            <div style="font-size: 28px;
+                    color: #ec008c;
+                    font-weight: bold;
                     margin-bottom: 15px;
                     text-shadow: 0 2px 8px rgba(236,0,140,0.4);
                     letter-spacing: 1px;">
-            ✉️ shiros.production.work@gmail.com
-        </div>
-        
-        <div style="color: rgba(255,255,255,0.8); 
-                    font-size: 16px; 
+                ✉️ shiros.production.work@gmail.com
+            </div>
+
+            <div style="color: rgba(255,255,255,0.8);
+                    font-size: 16px;
                     margin-top: 10px;
                     text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
-            Нажмите кнопку ниже чтобы скопировать
+                Нажмите кнопку ниже чтобы скопировать
+            </div>
         </div>
+
+        <!-- Новая кнопка -->
+        <button class="Btn" id="copyButton">
+            <div class="effect"></div>
+            <svg class="svgIcon" viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="M280 64h40c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128C0 92.7 28.7 64 64 64h40 9.6C121 27.5 153.3 0 192 0s71 27.5 78.4 64H280zM64 112c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16H320c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16H304v24c0 13.3-10.7 24-24 24H192 104c-13.3 0-24-10.7-24-24V112H64zm128-8a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"></path>
+            </svg>
+            <span class="text" id="buttonText">Копировать</span>
+        </button>
+
+        <p style="color: rgba(204,204,204,0.7); margin-top: 20px; font-size: 14px;">
+            Email будет скопирован в буфер обмена
+        </p>
     </div>
-    
-    <!-- Анимированная кнопка -->
-    <button id="copyButton" 
-            style="background: linear-gradient(180deg, rgba(236,0,140,1) 0%, rgba(200,0,120,1) 100%); 
-                   color: white; 
-                   border: none; 
-                   padding: 18px 40px; 
-                   border-radius: 16px; 
-                   font-size: 18px; 
-                   font-weight: 600;
-                   cursor: pointer;
-                   box-shadow: 0 4px 20px rgba(236, 0, 140, 0.4),
-                              0 0 0 1px rgba(255,255,255,0.1) inset;
-                   transition: all 0.3s ease;
-                   position: relative;
-                   overflow: hidden;">
-        <span id="buttonText">📋 Скопировать email</span>
-        <div id="checkmark" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; transition: all 0.3s ease;">✅</div>
-    </button>
-    
-    <p style="color: rgba(204,204,204,0.7); margin-top: 20px; font-size: 14px;">
-        Email будет скопирован в буфер обмена
-    </p>
-</div>
 
-<script>
-const copyButton = document.getElementById('copyButton');
-const buttonText = document.getElementById('buttonText');
-const checkmark = document.getElementById('checkmark');
+    <script>
+        const copyButton = document.getElementById('copyButton');
+        const buttonText = document.getElementById('buttonText');
+        const effect = copyButton.querySelector('.effect');
 
-copyButton.addEventListener('click', function() {
-    // Копируем email
-    navigator.clipboard.writeText('shiros.production.work@gmail.com');
-    
-    // Анимация кнопки
-    buttonText.style.opacity = '0';
-    checkmark.style.transform = 'translate(-50%, -50%) scale(1)';
-    checkmark.style.opacity = '1';
-    
-    // Меняем стиль кнопки
-    copyButton.style.background = 'linear-gradient(180deg, #00cc00 0%, #00aa00 100%)';
-    copyButton.style.boxShadow = '0 4px 20px rgba(0, 204, 0, 0.4)';
-    
-    // Возвращаем обратно через 2 секунды
-    setTimeout(() => {
-        buttonText.style.opacity = '1';
-        checkmark.style.transform = 'translate(-50%, -50%) scale(0)';
-        checkmark.style.opacity = '0';
-        copyButton.style.background = 'linear-gradient(180deg, rgba(236,0,140,1) 0%, rgba(200,0,120,1) 100%)';
-        copyButton.style.boxShadow = '0 4px 20px rgba(236, 0, 140, 0.4), 0 0 0 1px rgba(255,255,255,0.1) inset';
-    }, 2000);
-});
-</script>
+        copyButton.addEventListener('click', function () {
+            // Копируем email
+            navigator.clipboard.writeText('shiros.production.work@gmail.com');
+
+            // Анимация кнопки
+            buttonText.textContent = 'Скопировано!';
+            copyButton.classList.add('copied');
+
+            // Активируем эффект
+            effect.style.transform = 'scale(15)';
+            effect.style.opacity = '1';
+
+            // Возвращаем обратно через 2 секунды
+            setTimeout(() => {
+                buttonText.textContent = 'Копировать';
+                copyButton.classList.remove('copied');
+                effect.style.transform = 'scale(1)';
+                effect.style.opacity = '0';
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

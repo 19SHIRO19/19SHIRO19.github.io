@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PROJECT's - SHIRO19</title>
+    <link rel="icon" href="IMG_0646.ico" type="image/x-icon">
+    <style>
+        body {
+            background: url('https://wallpapers4screen.com/Temp/23-10-2025/bmw-m4-4k-front-view-2024-cars-supercars-wallpapers4screen.com-2048x1536.jpg') center center fixed;
+            background-size: cover;
+            margin: 0;
+            color: white;
+            font-family: Comfortaa, sans-serif;
+        }
+
+        body.dark-theme {
+            background: url('https://files.hodoor.world/main/abc260b8-3b75-46e9-9a11-4da4db229532.jpg') center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ec008c;
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(236,0,140,0.3);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+            .project-card:hover {
+                transform: translateY(-5px);
+                border-color: rgba(236,0,140,0.6);
+                box-shadow: 0 10px 30px rgba(236,0,140,0.3);
+            }
+
+        .project-title {
+            color: #ec008c;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .project-description {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: rgba(236,0,140,0.2);
+            color: #ff80bf;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid rgba(236,0,140,0.4);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(0.75turn, rgba(236,0,140,1) 0%, rgba(252,103,103,1) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.3);
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+        }
+
+            .project-link:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 20px rgba(236,0,140,0.5);
+            }
+
+            .project-link.demo {
+                background: linear-gradient(0.75turn, rgba(76,175,80,1) 0%, rgba(105,240,174,1) 100%);
+            }
+
+                .project-link.demo:hover {
+                    box-shadow: 0 4px 20px rgba(76,175,80,0.5);
+                }
+
+        .coming-soon {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+            margin: 40px 0;
+            font-size: 18px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 30px;
+            background: linear-gradient(0.75turn, rgba(236,0,140,1) 0%, rgba(252,103,103,1) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.3);
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+            .btn-back:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 20px rgba(236,0,140,0.5);
+            }
+
+        /* Стили для переключателя темы */
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-switch {
+            --toggle-size: 12px;
+            --container-width: 6em;
+            --container-height: 2.8em;
+            --container-radius: 6.25em;
+            --container-light-bg: #3D7EAE;
+            --container-night-bg: #1D1F2C;
+            --circle-container-diameter: 3.8em;
+            --sun-moon-diameter: 2.4em;
+            --sun-bg: #ECCA2F;
+            --moon-bg: #C4C9D1;
+            --spot-color: #959DB1;
+            --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+            --stars-color: #fff;
+            --clouds-color: #F3FDFF;
+            --back-clouds-color: #AACADF;
+            --transition: .5s cubic-bezier(0, -0.02, 0.4, 1.25);
+            --circle-transition: .3s cubic-bezier(0, -0.02, 0.35, 1.17);
+        }
+
+            .theme-switch, .theme-switch *, .theme-switch *::before, .theme-switch *::after {
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-size: var(--toggle-size);
+            }
+
+        .theme-switch__container {
+            width: var(--container-width);
+            height: var(--container-height);
+            background-color: var(--container-light-bg);
+            border-radius: var(--container-radius);
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
+            box-shadow: 0em -0.062em 0.062em rgba(0, 0, 0, 0.25), 0em 0.062em 0.125em rgba(255, 255, 255, 0.94);
+            -webkit-transition: var(--transition);
+            -o-transition: var(--transition);
+            transition: var(--transition);
+            position: relative;
+        }
+
+            .theme-switch__container::before {
+                content: "";
+                position: absolute;
+                z-index: 1;
+                inset: 0;
+                -webkit-box-shadow: 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset, 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset;
+                box-shadow: 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset, 0em 0.05em 0.187em rgba(0, 0, 0, 0.25) inset;
+                border-radius: var(--container-radius)
+            }
+
+        .theme-switch__checkbox {
+            display: none;
+        }
+
+        .theme-switch__circle-container {
+            width: var(--circle-container-diameter);
+            height: var(--circle-container-diameter);
+            background-color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            left: var(--circle-container-offset);
+            top: var(--circle-container-offset);
+            border-radius: var(--container-radius);
+            display: flex;
+            -webkit-transition: var(--circle-transition);
+            -o-transition: var(--circle-transition);
+            transition: var(--circle-transition);
+            pointer-events: none;
+        }
+
+        .theme-switch__sun-moon-container {
+            pointer-events: auto;
+            position: relative;
+            z-index: 2;
+            width: var(--sun-moon-diameter);
+            height: var(--sun-moon-diameter);
+            margin: auto;
+            border-radius: var(--container-radius);
+            background-color: var(--sun-bg);
+            -webkit-filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
+            filter: drop-shadow(0.062em 0.125em 0.125em rgba(0, 0, 0, 0.25)) drop-shadow(0em 0.062em 0.125em rgba(0, 0, 0, 0.25));
+            overflow: hidden;
+            -webkit-transition: var(--transition);
+            -o-transition: var(--transition);
+            transition: var(--transition);
+        }
+
+        .theme-switch__moon {
+            -webkit-transform: translateX(100%);
+            -ms-transform: translateX(100%);
+            transform: translateX(100%);
+            width: 100%;
+            height: 100%;
+            background-color: var(--moon-bg);
+            border-radius: inherit;
+            -webkit-transition: var(--transition);
+            -o-transition: var(--transition);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .theme-switch__spot {
+            position: absolute;
+            top: 0.8em;
+            left: 0.35em;
+            width: 0.8em;
+            height: 0.8em;
+            border-radius: var(--container-radius);
+            background-color: var(--spot-color);
+        }
+
+            .theme-switch__spot:nth-of-type(2) {
+                width: 0.4em;
+                height: 0.4em;
+                top: 1em;
+                left: 1.5em;
+            }
+
+            .theme-switch__spot:nth-last-of-type(3) {
+                width: 0.3em;
+                height: 0.3em;
+                top: 0.35em;
+                left: 0.9em;
+            }
+
+        .theme-switch__checkbox:checked + .theme-switch__container {
+            background-color: var(--container-night-bg);
+        }
+
+            .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+                left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+            }
+
+            .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__moon {
+                -webkit-transform: translate(0);
+                -ms-transform: translate(0);
+                transform: translate(0);
+            }
+    </style>
+</head>
+<body>
+    <!-- Переключатель темы -->
+    <div class="theme-switch">
+        <label class="theme-switch" title="Переключить тему">
+            <input type="checkbox" class="theme-switch__checkbox">
+            <div class="theme-switch__container">
+                <div class="theme-switch__circle-container">
+                    <div class="theme-switch__sun-moon-container">
+                        <div class="theme-switch__moon">
+                            <div class="theme-switch__spot"></div>
+                            <div class="theme-switch__spot"></div>
+                            <div class="theme-switch__spot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </label>
+    </div>
+
+    <div class="container">
+        <h1>🚀 Наши проекты</h1>
+
+        <div class="projects-grid">
+            <!-- ПРИМЕР ПРОЕКТА 1 -->
+            <div class="project-card">
+                <div class="project-title">🎯 Project 1</div>
+                <div class="project-description">
+                    (НЕ)обычный калькулятор
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">HTML</span>
+                    <span class="tech-tag">CSS</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+                <div class="project-links">
+                    <a href="calc.html" class="project-link demo">Демо</a>
+                    <a href="javascript:void(0)" class="project-link" onclick="alert('Чтобы получить код, напишите на нашу почту: shiros.production.work@gmail.com')">Код</a>
+                </div>
+            </div>
+
+            <!-- ПРИМЕР ПРОЕКТА 2 -->
+            <div class="project-card">
+                <div class="project-title">💫 Soon.. </div>
+                <div class="project-description">
+                    В разработке...
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">?</span>
+                    <span class="tech-tag">?</span>
+                    <span class="tech-tag">?</span>
+                </div>
+                <div class="project-links">
+                    <a href="project2-demo.html" class="project-link demo">Демо</a>
+                    <a href="project2-code.html" class="project-link">Код</a>
+                </div>
+            </div>
+
+            <!-- ДОБАВЛЯЙТЕ СВОИ ПРОЕКТЫ ЗДЕСЬ -->
+            <!--
+            <div class="project-card">
+                <div class="project-title">Название проекта</div>
+                <div class="project-description">
+                    Описание проекта
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">Технологии</span>
+                </div>
+                <div class="project-links">
+                    <a href="demo-link.html" class="project-link demo">Демо</a>
+                    <a href="code-link.html" class="project-link">Код</a>
+                </div>
+            </div>
+            -->
+        </div>
+
+        <div class="coming-soon">
+            ⏳ Больше проектов в разработке...
+        </div>
+
+        <a href="index.html" class="btn-back">← На главную</a>
+    </div>
+
+    <script>
+        // Переключатель темы
+        const themeCheckbox = document.querySelector('.theme-switch__checkbox');
+        const body = document.body;
+
+        // Проверяем сохраненную тему
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+            themeCheckbox.checked = true;
+        }
+
+        // Обработчик переключения темы
+        themeCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+</html>
