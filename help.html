@@ -1,33 +1,167 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-<link rel="icon" href="IMG_0646.ico" type="image/x-icon">
-<link rel="shortcut icon" href="IMG_0646.ico" type="image/x-icon" />
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help - SHIRO19</title>
+    <link rel="icon" href="IMG_0646.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="IMG_0646.ico" type="image/x-icon" />
     <style>
+        :root {
+            --accent-color: #ec008c;
+            --text-color: white;
+            --bg-overlay: rgba(0, 0, 0, 0.75);
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
         body {
             background: url('https://i.pinimg.com/originals/fe/1a/95/fe1a95328f911d583ab668eea34c614e.jpg') center center fixed;
             background-size: cover;
             margin: 0;
-            color: white;
-            font-family: Comfortaa, sans-serif;
+            color: var(--text-color);
+            font-family: 'Comfortaa', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
         .content {
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(8px);
-            border-radius: 15px;
+            background: var(--bg-overlay);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
             padding: 40px;
-            margin: 100px auto;
-            max-width: 800px;
+            margin: 60px 20px;
+            max-width: 900px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .help-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .help-card h3 {
+            color: var(--accent-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0;
+        }
+
+        .support-link {
+            border: 1px solid var(--accent-color);
+            background: rgba(236, 0, 140, 0.05);
+        }
+
+        .footer-nav {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 12px 30px;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            background: var(--accent-color);
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(236, 0, 140, 0.3);
+        }
+
+        .btn-back:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(236, 0, 140, 0.5);
+        }
+
+        @media (max-width: 600px) {
+            .content { padding: 20px; margin: 20px; }
+            h1 { font-size: 1.8em; }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="content">
-        <h1>Help Page</h1>
-        <p>Тут будет твоя помощь... Ну.. Я думаю.. Эээ.. Когда руки.. Это.. Доберутся.. может быть тогда..</p>
-        <a href="index.html" style="color: #ec008c;">← Назад на главную</a>
+        <h1>Центр поддержки SHIRO19</h1>
+        
+        <p style="text-align: center; color: rgba(255,255,255,0.6);">Краткое руководство по использованию нашего портала и обратная связь.</p>
+
+        <div class="help-grid">
+            <div class="help-card">
+                <h3>🚀 Проекты</h3>
+                <p>В разделе "Projects" собраны все актуальные разработки команды. Вы можете просмотреть демо-версии и исходный код доступных инструментов.</p>
+            </div>
+
+            <div class="help-card">
+                <h3>🛡️ Модерация</h3>
+                <p>Информация о нашей команде. Здесь представлены активные участники, следящие за порядком и развитием наших сервисов.</p>
+            </div>
+
+            <div class="help-card">
+                <h3>❓ FAQ</h3>
+                <p>Столкнулись с проблемой? Загляните в раздел часто задаваемых вопросов перед тем, как писать в поддержку.</p>
+            </div>
+
+            <div class="help-card">
+                <h3>📱 Контакты</h3>
+                <p>Нужна прямая связь? В разделе контактов вы можете скопировать наш email или найти ссылки на социальные сети.</p>
+            </div>
+
+            <a href="mailto:shiros.production.work@gmail.com?subject=Support%20Request" class="help-card support-link">
+                <h3>📧 Написать нам</h3>
+                <p>Возникли технические сложности или есть предложение? Нажмите сюда, чтобы отправить письмо в техподдержку.</p>
+            </a>
+
+            <a href="contact.html" class="help-card support-link">
+                <h3>💬 Сообщить о баге</h3>
+                <p>Нашли ошибку в работе сайта или калькулятора? Опишите её нам, и мы исправим это в кратчайшие сроки.</p>
+            </a>
+        </div>
+
+        <div class="footer-nav">
+            <a href="main.html" class="btn-back">← Вернуться на главную</a>
+        </div>
     </div>
 </body>
 </html>
